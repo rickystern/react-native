@@ -1,13 +1,35 @@
 
 import React from 'react';
-import { Image, Text, View, StyleSheet, ScrollView } from 'react-native';
+//import {Card} from 'react-native-paper'; //added
+import { Image, Text, View, StyleSheet, ScrollView, Button } from 'react-native';
 import BestBuyservice from './services/bestbuyservice';
+import { StackNavigator } from 'react-navigation';
+
+
+
+
 
 export default class App extends React.Component {
+
   static navigationOptions = {
-    title: 'welcome',
+    headerTitle: "duckBuy",
+    headerStyle: {
+      backgroundColor: '#FF9800'
+    },
+    headerTintColor: '#fff',
+
+    headerRight: (
+      <Button
+        onPress={() => alert('to product details page')}
+        title="About"
+        color="##00ced1"
+      />
+    )
   };
+
+
   //all above added
+
   constructor(props) {
     super(props)
     // this.products = [];
@@ -43,41 +65,49 @@ export default class App extends React.Component {
 
   }
   render() {
-    return(
+    return (
 
-    <ScrollView>
-      <View style={styles.container}>
+      <ScrollView>
+        <View style={styles.container}>
 
-        {this.state.products.map(product => {
-          return (
+          {this.state.products.map(product => {
+            return (
+              <View style={styles.listView}>
 
-            <View style={styles.listView}>
-              <Image style={styles.image} source={{ uri: product.image }} />
 
-              <View style={styles.text}>
+                <View style= {styles.padding} >
+                    <Image style={styles.image} source={{ uri: product.image }} />
+                </View>
 
-                <Text style={styles.descriptions}>
-                  {product.name}
-                </Text>
+                <View style= {styles.border}>
 
-                <Text style={styles.descriptions}>
-                  {product.description}
-                </Text>
+
+                  <View style={styles.text}>
+
+                    <Text style={styles.descriptions}>
+                      {product.name}
+                    </Text>
+
+                    <Text style={styles.descriptions}>
+                      {product.description}
+                    </Text>
+
+                  </View>
+
+
+
+
+                </View>
+                <Image styles={styles.imageLeft} source={require('./assets/images/chevron-right.png')} />
 
               </View>
+            )
+          }
 
-              <Image styles={styles.imageLeft} source={require('./assets/images/chevron-right.png')} />
+          )}
 
-            </View>
-          )
-        }
-
-        )}
-
-      </View>
-
-
-    </ScrollView>
+        </View>
+      </ScrollView>
     )
   }
 
@@ -90,17 +120,22 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    // backgroundColor: '#ecf0f1',
-    margin: 0,
-    padding: 5
+    backgroundColor: '#fff',
+    margin: 10,
+    padding: 70,
 
   },
   listView: {
     alignItems: 'center',
     justifyContent: 'center',
     flexDirection: 'row',
-    // backgroundColor: '#ecf0f1',
+    backgroundColor: '#fff',
     marginTop: 10,
+    shadowOffset:{  width: 10,  height: 10,  },
+    shadowColor: 'black',
+    shadowOpacity: 1.0,
+    elevation: 7,
+    padding:10
   },
   heading: {
     fontSize: 18,
@@ -114,24 +149,44 @@ const styles = StyleSheet.create({
     textAlign: 'left',
     color: '#34495e',
 
+
   },
   image: {
-    alignItems:'center',
-    width: 30,
-    height: 58,
+    alignItems: 'center',
+   // justifyContent: "space-around",
+    padding:30,
+    width: 120,
+    height: 80,
+    marginLeft: 150,
+  },
+
+  border: {
+    borderLeftWidth: 3,
+    borderLeftColor: '#d3d3d3'
+    
   },
 
 
   imageLeft: {
-    padding: 10,
+    //padding: 10,
+   // marginRight: 200
+
     //   margin:5
+
+  },
+
+  padding:{
+    paddingRight:15
   },
 
 
   text: {
-    padding: 50,
-    marginLeft: 5,
-    textAlign: 'center'
+    padding: 20,
+    // marginLeft: 5,
+    textAlign: 'center',
+    fontSize:30,
+    fontWeight: 'bold'
+    
 
   },
 
