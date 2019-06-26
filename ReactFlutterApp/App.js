@@ -3,33 +3,17 @@ import React from 'react';
 //import {Card} from 'react-native-paper'; //added
 import { Image, Text, View, StyleSheet, ScrollView, Button } from 'react-native';
 import BestBuyservice from './services/bestbuyservice';
-import { StackNavigator } from 'react-navigation';
+
+//import {createMaterialBottomTabNavigator} from 'react-navigation-material-bottom-tabs'
+import { createStackNavigator, createBottomTabNavigator } from "react-navigation";
 
 
 
 
 
-export default class App extends React.Component {
-
-  static navigationOptions = {
-    headerTitle: "duckBuy",
-    headerStyle: {
-      backgroundColor: '#FF9800'
-    },
-    headerTintColor: '#fff',
-
-    headerRight: (
-      <Button
-        onPress={() => alert('to product details page')}
-        title="About"
-        color="##00ced1"
-      />
-    )
-  };
 
 
-  //all above added
-
+class AppContainer extends React.Component {
   constructor(props) {
     super(props)
     // this.products = [];
@@ -113,6 +97,30 @@ export default class App extends React.Component {
 
 
 }
+
+const AppStack = createStackNavigator({
+  Home: {
+    screen: AppContainer
+  }
+  //navbutton and title
+});
+
+const App = createBottomTabNavigator({
+  Home: {
+    screen: AppStack
+  },
+  voice: {
+    screen: AppStack
+  },
+  cart: {
+    screen: AppStack
+  }
+});
+
+ export default App;
+//export default createAppContainer(AppNavigator);
+
+
 
 const styles = StyleSheet.create({
 
