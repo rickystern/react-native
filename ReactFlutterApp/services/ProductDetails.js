@@ -1,4 +1,4 @@
-// import BestBuyservice from './services/bestbuyservice';
+import {App} from './services/bestbuyservice';
 // import React from 'react';
 // import { Image, Text, View, StyleSheet, ScrollView } from 'react-native';
 // import { Card } from 'react-native-elements';
