@@ -1,10 +1,10 @@
 
 import React from 'react';
 import { TouchableRipple } from 'react-native-paper';
-import { Image, Text, View, StyleSheet, ScrollView, Button, TouchableOpacity } from 'react-native';
+import { Image, Text, View, StyleSheet, ScrollView, Button, TouchableOpacity,Alert } from 'react-native';
 import BestBuyservice from './services/bestbuyservice';
 //import { Icon } from 'react-native-vector-icons/Ionicons';
-import { createStackNavigator, createBottomTabNavigator ,createAppContainer } from "react-navigation";
+import { createStackNavigator, createBottomTabNavigator, createAppContainer } from "react-navigation";
 import Ripple from 'react-native-material-ripple'
 import Icon from '@expo/vector-icons/FontAwesome'
 
@@ -21,9 +21,13 @@ class AppContainer extends React.Component {
 
   }
 
-  
+  onPress(){
+    Alert.alert("you touched the button")
+  }
 
-   getProducts() { //expot because i want the other page to have acees to these variables 
+
+
+  getProducts() { //expot because i want the other page to have acees to these variables 
     const bestBuyService = new BestBuyservice();
     bestBuyService.getProducts().then((response) => {
 
@@ -50,14 +54,16 @@ class AppContainer extends React.Component {
     return (
 
       <ScrollView>
-        <TouchableOpacity>
-          
-          <View style={styles.container}>
+        <View style={styles.container}>
 
-            {this.state.products.map(product => {
-              return (
-                 <View style={styles.listView}> 
+          {this.state.products.map(product => {
+            return (
 
+
+              <View style={styles.listView}>
+
+                <TouchableOpacity
+                 onPress={this.onPress}>
 
                   <View style={styles.padding} >
                     <Image style={styles.image} source={{ uri: product.image }} />
@@ -71,7 +77,7 @@ class AppContainer extends React.Component {
                       <Text style={styles.descriptions}>
 
 
-                          {product.name.substring(0, 50) + "..."}
+                        {product.name.substring(0, 50) + "..."}
                       </Text>
 
                       <Text style={styles.descriptions}>
@@ -86,16 +92,15 @@ class AppContainer extends React.Component {
                   </View>
                   <Image styles={styles.imageLeft} source={require('./assets/images/chevron-right.png')} />
 
-                </View>
-              )
-            }
 
-            )}
+                </TouchableOpacity>
+              </View>
+            )
+          }
 
-          </View>
-        
-        </TouchableOpacity>
+          )}
 
+        </View>
       </ScrollView>
     )
   }
@@ -104,44 +109,44 @@ class AppContainer extends React.Component {
 }
 
 // class details extends React.getProducts{
-  
+
 //   render(){
 //     return(
 //       <Text> is</Text>
 //     )
-  
+
 //   }
 // }
 
 
 const AppStack = createStackNavigator({
-  
+
   Home: {
     screen: AppContainer,
 
     navigationOptions: () => ({
-      
+
       title: `DuckBuy`,
       headerTitleStyle: {
         textAlign: "center",
-        flex: 1 , 
-     
+        flex: 1,
+
       },
-      headerLeft:(
-        
+      headerLeft: (
+
         <Image
-        style={styles.imageheader}
-           source={require('./assets/images/YRDduck.png')}
-           />
-      
+          style={styles.imageheader}
+          source={require('./assets/images/YRDduck.png')}
+        />
+
       ),
       headerRight: (
-                   <Icon
-               name="user-circle"
-               size={30}
-               paddingRight={10}
-               justifyContent="center"
-           />
+        <Icon
+          name="user-circle"
+          size={30}
+          paddingRight={10}
+          justifyContent="center"
+        />
       ),
 
     }),
@@ -151,56 +156,56 @@ const AppStack = createStackNavigator({
 
 
 
-export const App = createBottomTabNavigator({ 
-  
+export const App = createBottomTabNavigator({
+
 
   Home: {
     screen: AppStack,
     navigationOptions: () => ({
-     tabBarIcon: ({tintColor}) => (
-          <Icon
-              name="home"
-              color={tintColor}
-              size={30}
-          />
+      tabBarIcon: ({ tintColor }) => (
+        <Icon
+          name="home"
+          color={tintColor}
+          size={30}
+        />
       )
-  })
+    })
 
   },
 
   voice: {
     screen: AppStack,
     navigationOptions: () => ({
-      tabBarIcon: ({tintColor}) => (
-           <Icon
-               name="microphone" ///doesnt seem to allow the outlineof icons
-               color={tintColor}
-               size={30}
-           />
-       )
-   })
+      tabBarIcon: ({ tintColor }) => (
+        <Icon
+          name="microphone" ///doesnt seem to allow the outlineof icons
+          color={tintColor}
+          size={30}
+        />
+      )
+    })
   },
 
-  
+
   cart: {
     screen: AppStack,
     navigationOptions: () => ({
 
-      
-      tabBarIcon: ({tintColor}) => (
-        
-       
-           <Icon
-               name="shopping-cart"
-               color={tintColor}
-               size={30}
-           />
-         
-       )
-   })
-    
+
+      tabBarIcon: ({ tintColor }) => (
+
+
+        <Icon
+          name="shopping-cart"
+          color={tintColor}
+          size={30}
+        />
+
+      )
+    })
+
   },
-  
+
 
 }
 );
@@ -217,9 +222,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: '#fff',
-    paddingTop:0,
-    paddingBottom:0,
-    padding: 70
+    paddingTop: 0,
+    paddingBottom: 0,
+    padding: 40
   },
 
   listView: {
@@ -268,8 +273,8 @@ const styles = StyleSheet.create({
     width: 40,
     height: 40,
     marginLeft: 10
-  
-  
+
+
   },
 
   padding: {
