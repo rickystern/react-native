@@ -21,8 +21,11 @@ class AppContainer extends React.Component {
 
   }
 
-  onPress(){
-    Alert.alert("you touched the button")
+  onPress(navigate){
+
+    console.log(navigate);
+    navigate('ProductDetails', null)
+  //  Alert.alert("you touched the button")
   }
 
 
@@ -37,9 +40,11 @@ class AppContainer extends React.Component {
           name: product.name,
           image: product.image,
           avail: product.inStoreAvailability,
-          price: product.salePrice,
-          description: product.description,
-          thumbnail: product.thumbnailImage
+          price: product.regularPrice,
+          description: product.shortDescription,
+          manufacturer:product.manufacturer,
+          id:product.sku
+          
         }
       })
       console.log("bestBuyService")
@@ -51,6 +56,9 @@ class AppContainer extends React.Component {
 
   }
   render() {
+
+    const {navigate} = this.props.navigation;
+
     return (
 
       <ScrollView>
@@ -60,10 +68,10 @@ class AppContainer extends React.Component {
             return (
 
 
-              <View style={styles.listView}>
+              <View key={product.id} style={styles.listView}>
 
                 <TouchableOpacity
-                 onPress={this.onPress}>
+                 onPress={() => navigate('ProductDetails', null)}>
 
                   <View style={styles.padding} >
                     <Image style={styles.image} source={{ uri: product.image }} />
@@ -156,7 +164,7 @@ const AppStack = createStackNavigator({
 
 
 
-export const App = createBottomTabNavigator({
+export const Main = createBottomTabNavigator({
 
 
   Home: {
@@ -210,8 +218,18 @@ export const App = createBottomTabNavigator({
 }
 );
 
-export default App;
-//export default createAppContainer(AppNavigator);
+// const MainNavigator = createStackNavigator({
+//   Home: {screen: Main}
+//   //Profile: {screen: ProductDetails},
+// });
+
+const MainAgain = createAppContainer(Main);
+
+export default class App extends React.Component {
+  render() {
+    return <MainAgain />;
+  }
+}
 
 
 
