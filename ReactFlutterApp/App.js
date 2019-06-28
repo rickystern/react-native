@@ -5,7 +5,7 @@ import { Image, Text, View, StyleSheet, ScrollView, Button, TouchableOpacity,Ale
 import BestBuyservice from './services/bestbuyservice';
 //import { Icon } from 'react-native-vector-icons/Ionicons';
 import { createStackNavigator, createBottomTabNavigator, createAppContainer } from "react-navigation";
-import Ripple from 'react-native-material-ripple'
+import ProductDetails from './services/ProductDetails';
 import Icon from '@expo/vector-icons/FontAwesome'
 
 class AppContainer extends React.Component {
@@ -159,6 +159,9 @@ const AppStack = createStackNavigator({
 
     }),
   },
+
+  ProductDetails: { screen: ProductDetails
+  }
 
 });
 
