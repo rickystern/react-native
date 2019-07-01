@@ -2,7 +2,7 @@
 import React from 'react';
 import { Image, Text, View, StyleSheet, TouchableHighlight } from 'react-native';
 import Icon from '@expo/vector-icons/FontAwesome'
-import { Button } from 'react-native';
+import { Button } from 'react-native-elements';
 
 
 
