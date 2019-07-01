@@ -6,7 +6,9 @@ import BestBuyservice from './services/bestbuyservice';
 //import { Icon } from 'react-native-vector-icons/Ionicons';
 import { createStackNavigator, createBottomTabNavigator, createAppContainer } from "react-navigation";
 import ProductDetails from './services/ProductDetails';
-import Icon from '@expo/vector-icons/FontAwesome'
+import Icon from '@expo/vector-icons/FontAwesome';
+import { SearchBar } from 'react-native-elements'
+
 
 class AppContainer extends React.Component {
 
@@ -21,14 +23,14 @@ class AppContainer extends React.Component {
 
   }
 
-  // onPress(navigate){
+  state = {
+    search: '',
+  };
 
-  //   console.log(navigate);
-  //   navigate('ProductDetails', null)
-  // //  Alert.alert("you touched the button")
-  // }
-
-
+  updateSearch = search => {
+    this.setState({ search });
+  };
+  
 
   getProducts() { //expot because i want the other page to have acees to these variables 
     const bestBuyService = new BestBuyservice();
@@ -58,68 +60,85 @@ class AppContainer extends React.Component {
   render() {
 
     const {navigate} = this.props.navigation;
+    const { search } = this.state;
 
     return (
 
+      
+
       <ScrollView>
+
+        <View>
+        <SearchBar
+        placeholder="Type Here..."
+        onChangeText={this.updateSearch}
+        value={search}
+      />
+
         <View style={styles.container}>
+        
 
-          {this.state.products.map(product => {
-            return (
-
-
-              <View key={product.id} style={styles.listView}>
-                <TouchableOpacity
-                 onPress={() => navigate('ProductDetails', {
-                  name: product.name,
-                  image: product.image,
-                  avail: product.inStoreAvailability,
-                  price: product.regularPrice,
-                  description: product.shortDescription,
-                  manufacturer:product.manufacturer,
-                  id:product.sku        
-
-                  // otherParam:product,
-                 })}
-                 >
-
-                  <View style={styles.padding} >
-                    <Image style={styles.image} source={{ uri: product.image }} />
-                  </View>
-
-                  <View style={styles.border}>
+        {this.state.products.map(product => {
+          return (
+            
 
 
-                    <View style={styles.text}>
+            <View key={product.id} style={styles.listView}>
+              <TouchableOpacity
+               onPress={() => navigate('ProductDetails', {
+                name: product.name,
+                image: product.image,
+                avail: product.inStoreAvailability,
+                price: product.regularPrice,
+                description: product.shortDescription,
+                manufacturer:product.manufacturer,
+                id:product.sku        
 
-                      <Text style={styles.descriptions}>
+                // otherParam:product,
+               })}
+               >
+
+                <View style={styles.padding} >
+                  <Image style={styles.image} source={{ uri: product.image }} />
+                </View>
+
+                <View style={styles.border}>
 
 
-                        {product.name.substring(0, 50) + "..."}
-                      </Text>
+                  <View style={styles.text}>
 
-                      <Text style={styles.descriptions}>
-                        {"$ " + product.price}
-                        {product.shortDescription}
-                      </Text>
-
-                    </View>
+                    <Text style={styles.descriptions}>
 
 
+                      {product.name.substring(0, 50) + "..."}
+                    </Text>
 
+                    <Text style={styles.descriptions}>
+                      {"$ " + product.price}
+                      {product.shortDescription}
+                    </Text>
 
                   </View>
-                  <Image styles={styles.imageLeft} source={require('./assets/images/chevron-right.png')} />
 
 
-                </TouchableOpacity>
-              </View>
-            )
-          }
 
-          )}
 
+                </View>
+                <Image styles={styles.imageLeft} source={require('./assets/images/chevron-right.png')} />
+
+
+              </TouchableOpacity>
+            </View>
+          )
+        }
+
+        )}
+
+      </View>
         </View>
+
+
+        
       </ScrollView>
     )
   }

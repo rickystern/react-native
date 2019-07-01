@@ -41,27 +41,14 @@ render (){
                                     name= 'heart'
                                     color='red'
                                 />
-                                <Button
-                                style={styles.button}
-                                    title="Buy Now"
-                                    color="#194d33"
-                                    
-                                />
-
-
-                                {/* {/* <Button
-                                style={styles.button} 
-                                title="buy Now"
-                                color = "green"
-                                icon={
-                                    <Icon
-                                    name="arrow-right"
-                                    size={15}
-                                    color="white"
+                                <View> 
+                                    <Button
+                                      style={styles.button}
+                                        title="Buy Now"
+                                        color="#194d33"  
                                     />
-                                }
+                                </View>
                                  
-                                /> */}
                     </View>
             
                
