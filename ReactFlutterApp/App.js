@@ -113,7 +113,7 @@ class AppContainer extends React.Component {
                       {product.name.substring(0, 50) + "..."}
                     </Text>
 
-                    <Text style={styles.descriptions}>
+                    <Text style={styles.price}>
                       {"$ " + product.price}
                       {product.shortDescription}
                     </Text>
@@ -288,9 +288,13 @@ const styles = StyleSheet.create({
   descriptions: {
     fontSize: 16,
     textAlign: 'left',
-    color: '#34495e',
+    color: 'black',
+  },
 
-
+  price:{
+    fontSize: 16,
+    textAlign: 'left',
+    color: 'green',
   },
   image: {
     alignItems: 'center',
@@ -333,6 +337,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   }
+
 
 });
 
