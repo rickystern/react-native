@@ -41,7 +41,7 @@ render (){
                                     name= 'heart'
                                     color='red'
                                 />
-                                <View> 
+                                <View style={styles.button}> 
                                     <Button
                                       style={styles.button}
                                         title="Buy Now"
@@ -78,12 +78,12 @@ const styles = StyleSheet.create({
         padding: 15,
         // marginLeft: 5,
         textAlign: 'center',
-        fontSize: 10,
+        fontSize: 16,
         fontWeight: 'bold'
       },
 
       heart: {
-         
+        paddingLeft:100,
         marginLeft: 10,
         alignItems: 'center',
         flexDirection: 'row',
@@ -93,7 +93,10 @@ const styles = StyleSheet.create({
       },
       button:{
           padding:30,
-          margin :30
+          margin :50,
+          alignItems: 'center',
+          justifyContent: 'center',
+
       }
 
 

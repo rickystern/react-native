@@ -146,15 +146,6 @@ class AppContainer extends React.Component {
 
 }
 
-// class details extends React.getProducts{
-
-//   render(){
-//     return(
-//       <Text> is</Text>
-//     )
-
-//   }
-// }
 
 
 const AppStack = createStackNavigator({
@@ -251,10 +242,6 @@ export const Main = createBottomTabNavigator({
 }
 );
 
-// const MainNavigator = createStackNavigator({
-//   Home: {screen: Main}
-//   //Profile: {screen: ProductDetails},
-// });
 
 const MainAgain = createAppContainer(Main);
 
@@ -275,12 +262,13 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     paddingTop: 0,
     paddingBottom: 0,
-    padding: 40
+    padding: 40,
+    
   },
 
   listView: {
     alignItems: 'center',
-    justifyContent: 'center',
+  
     flexDirection: 'row',
     backgroundColor: '#fff',
     marginTop: 10,
