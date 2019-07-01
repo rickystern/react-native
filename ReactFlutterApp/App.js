@@ -21,12 +21,12 @@ class AppContainer extends React.Component {
 
   }
 
-  onPress(navigate){
+  // onPress(navigate){
 
-    console.log(navigate);
-    navigate('ProductDetails', null)
-  //  Alert.alert("you touched the button")
-  }
+  //   console.log(navigate);
+  //   navigate('ProductDetails', null)
+  // //  Alert.alert("you touched the button")
+  // }
 
 
 
@@ -69,9 +69,19 @@ class AppContainer extends React.Component {
 
 
               <View key={product.id} style={styles.listView}>
-
                 <TouchableOpacity
-                 onPress={() => navigate('ProductDetails', null)}>
+                 onPress={() => navigate('ProductDetails', {
+                  name: product.name,
+                  image: product.image,
+                  avail: product.inStoreAvailability,
+                  price: product.regularPrice,
+                  description: product.shortDescription,
+                  manufacturer:product.manufacturer,
+                  id:product.sku        
+
+                  // otherParam:product,
+                 })}
+                 >
 
                   <View style={styles.padding} >
                     <Image style={styles.image} source={{ uri: product.image }} />
@@ -90,6 +100,7 @@ class AppContainer extends React.Component {
 
                       <Text style={styles.descriptions}>
                         {"$ " + product.price}
+                        {product.shortDescription}
                       </Text>
 
                     </View>
