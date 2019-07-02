@@ -6,7 +6,10 @@ import BestBuyservice from './services/bestbuyservice';
 import { createStackNavigator, createBottomTabNavigator, createAppContainer } from "react-navigation";
 import ProductDetails from './services/ProductDetails';
 import Icon from '@expo/vector-icons/FontAwesome';
-import { SearchBar } from 'react-native-elements'
+import { SearchBar } from 'react-native-elements';
+import ProductLocations from './services/ProductLocations';
+import Cart from './services/Cart';
+import Voice from './services/Voice';
 
 // the cards need a call to action
 class AppContainer extends React.Component {
@@ -96,37 +99,93 @@ class AppContainer extends React.Component {
                       // otherParam:product,
                     })}
                   >
+                      {/* <TouchableOpacity
+                      onPress={() => navigate('ProductDetails', {
+                        name: product.name,
+                        image: product.image,
+                        avail: product.inStoreAvailability,
+                        price: product.regularPrice,
+                        description: product.shortDescription,
+                        manufacturer: product.manufacturer,
+                        id: product.sku
+  
+                        // otherParam:product,
+                      })}> */}
 
-                    <View style={styles.padding} >
+                      <View style={styles.padding} >
                       <Image style={styles.image} source={{ uri: product.image }} />
                     </View>
 
+                      </TouchableOpacity>
+                    
+
                     <View style={styles.border}>
 
+                      <TouchableOpacity
+                      onPress={() => navigate('ProductDetails', {
+                        name: product.name,
+                        image: product.image,
+                        avail: product.inStoreAvailability,
+                        price: product.regularPrice,
+                        description: product.shortDescription,
+                        manufacturer: product.manufacturer,
+                        id: product.sku
+  
+                        // otherParam:product,
+                      })}>
 
-                      <View style={styles.text}>
+                            
+                          <View style={styles.text}>
 
-                        <Text style={styles.descriptions}>
+                           <Text style={styles.descriptions}>
+                               {product.name.substring(0, 50) + "..."}
+                            </Text>
+
+                             <Text style={styles.price}>
+                                 {"$ " + product.price}
+                                  {product.shortDescription}
+                               </Text>
+
+                               <Button
+                                  onPress={() => navigate('ProductDetails', {
+                                    name: product.name,
+                                    image: product.image,
+                                    avail: product.inStoreAvailability,
+                                    price: product.regularPrice,
+                                    description: product.shortDescription,
+                                    manufacturer: product.manufacturer,
+                                    id: product.sku
+              
+                                    // otherParam:product,
+                                  })}
+                                  title="Veiw"
+                                  color="#194d33"
+                                  />
+
+                              </View>
 
 
-                          {product.name.substring(0, 50) + "..."}
-                        </Text>
-
-                        <Text style={styles.price}>
-                          {"$ " + product.price}
-                          {product.shortDescription}
-                        </Text>
-
-                      </View>
-
-
-
+                      </TouchableOpacity>
 
                     </View>
-                    <Image styles={styles.imageLeft} source={require('./assets/images/chevron-right.png')} />
+
+                    <TouchableOpacity onPress={() => navigate('ProductDetails', {
+                      name: product.name,
+                      image: product.image,
+                      avail: product.inStoreAvailability,
+                      price: product.regularPrice,
+                      description: product.shortDescription,
+                      manufacturer: product.manufacturer,
+                      id: product.sku
+
+                      // otherParam:product,
+                    })}>
+                        <Image styles={styles.imageLeft} source={require('./assets/images/chevron-right.png')} />
+                    </TouchableOpacity>
+                    
 
 
-                  </TouchableOpacity>
+                  {/* </TouchableOpacity> */}
                 </View>
               )
             }
@@ -180,9 +239,20 @@ const AppStack = createStackNavigator({
     }),
   },
 
+  ProductLocations:{
+    screen:ProductLocations
+},
+
   ProductDetails: {
     screen: ProductDetails
-  }
+  },
+
+  Cart: {
+    screen: Cart
+  },
+  // Voice: {
+  //   screen: Voice
+  // }
 
 });
 
@@ -205,8 +275,8 @@ export const Main = createBottomTabNavigator({
 
   },
 
-  voice: {
-    screen: AppStack,
+  Voice: {
+    screen:  AppStack,
     navigationOptions: () => ({
       tabBarIcon: ({ tintColor }) => (
         <Icon
@@ -219,8 +289,8 @@ export const Main = createBottomTabNavigator({
   },
 
 
-  cart: {
-    screen: AppStack,
+  Cart: {
+    screen: Cart,
     navigationOptions: () => ({
 
 
@@ -262,13 +332,13 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     paddingTop: 0,
     paddingBottom: 0,
-    padding: 40,
+    padding: 70,
 
   },
 
   listView: {
     alignItems: 'center',
-
+    justifyContent: 'center',
     flexDirection: 'row',
     backgroundColor: '#fff',
     marginTop: 10,

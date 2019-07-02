@@ -3,6 +3,8 @@ import React from 'react';
 import { Image, Text, View, StyleSheet, TouchableOpacity } from 'react-native';
 import Icon from '@expo/vector-icons/FontAwesome'
 import { Button } from 'react-native-elements';
+import { createStackNavigator, createBottomTabNavigator, createAppContainer } from "react-navigation";
+import ProductLocations from './ProductLocations'
 
 
 
@@ -22,9 +24,14 @@ class dellaptop extends React.Component {
           paddingRight={10}
           justifyContent="center"
         />
-        ) 
-      };
+        ),
 
+        
+        
+    
+      };
+      
+  
       state = {
           toggle:false
       }
@@ -35,6 +42,7 @@ class dellaptop extends React.Component {
 
 
     render() {
+        const { navigate } = this.props.navigation;
         const {toggle}= this.state;
         const IconColor= toggle?"red":"black";
         const { navigation } = this.props;
@@ -79,6 +87,7 @@ class dellaptop extends React.Component {
 
                     <View style={styles.button}>
                         <Button
+                          onPress={() => navigate('ProductLocations', {})}
                             style={styles.button}
                             title="Buy Now"
                             color="#194d33"
