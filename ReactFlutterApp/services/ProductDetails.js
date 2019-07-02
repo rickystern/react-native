@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { Image, Text, View, StyleSheet, TouchableHighlight } from 'react-native';
+import { Image, Text, View, StyleSheet, TouchableOpacity } from 'react-native';
 import Icon from '@expo/vector-icons/FontAwesome'
 import { Button } from 'react-native-elements';
 
@@ -25,9 +25,18 @@ class dellaptop extends React.Component {
         ) 
       };
 
+      state = {
+          toggle:false
+      }
+      onPress(){
+          const newState= !this.state.toggle;
+          this.setState({toggle:newState})
+      }
+
 
     render() {
-
+        const {toggle}= this.state;
+        const IconColor= toggle?"red":"black";
         const { navigation } = this.props;
         const id = navigation.getParam('id')
         const image = navigation.getParam('image')
@@ -45,13 +54,29 @@ class dellaptop extends React.Component {
                     {name}
                 </Text>
                 <Text>{description}</Text>
-                <View style={styles.heart}>
-                    <Icon
+                    
 
-                        size={40}
-                        name='heart'
-                        color='red'
-                    />
+                <View style={styles.heart}>
+
+
+                        <View>
+
+
+                            <TouchableOpacity
+                                onPress={() => this.onPress()}
+                            >
+
+                                    <Icon
+                                        style={{color:IconColor}}
+                                        size={40}
+                                        name='heart'
+                                       
+                                    />
+                                    
+                            </TouchableOpacity>
+
+                        </View>    
+
                     <View style={styles.button}>
                         <Button
                             style={styles.button}
@@ -108,7 +133,8 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
 
-    }
+    },
+    
 
 
 

@@ -1,15 +1,14 @@
 
 import React from 'react';
 import { TouchableRipple } from 'react-native-paper';
-import { Image, Text, View, StyleSheet, ScrollView, Button, TouchableOpacity,Alert } from 'react-native';
+import { Image, Text, View, StyleSheet, ScrollView, Button, TouchableOpacity, Alert } from 'react-native';
 import BestBuyservice from './services/bestbuyservice';
-//import { Icon } from 'react-native-vector-icons/Ionicons';
 import { createStackNavigator, createBottomTabNavigator, createAppContainer } from "react-navigation";
 import ProductDetails from './services/ProductDetails';
 import Icon from '@expo/vector-icons/FontAwesome';
 import { SearchBar } from 'react-native-elements'
 
-
+// the cards need a call to action
 class AppContainer extends React.Component {
 
   constructor(props) {
@@ -30,7 +29,7 @@ class AppContainer extends React.Component {
   updateSearch = search => {
     this.setState({ search });
   };
-  
+
 
   getProducts() { //expot because i want the other page to have acees to these variables 
     const bestBuyService = new BestBuyservice();
@@ -44,9 +43,9 @@ class AppContainer extends React.Component {
           avail: product.inStoreAvailability,
           price: product.regularPrice,
           description: product.shortDescription,
-          manufacturer:product.manufacturer,
-          id:product.sku
-          
+          manufacturer: product.manufacturer,
+          id: product.sku
+
         }
       })
       console.log("bestBuyService")
@@ -59,86 +58,86 @@ class AppContainer extends React.Component {
   }
   render() {
 
-    const {navigate} = this.props.navigation;
+    const { navigate } = this.props.navigation;
     const { search } = this.state;
 
     return (
 
-      
+
 
       <ScrollView>
 
         <View>
-        <SearchBar
-        placeholder="Type Here..."
-        onChangeText={this.updateSearch}
-        value={search}
-      />
+          <SearchBar
+            placeholder="Type Here..."
+            onChangeText={this.updateSearch}
+            value={search}
+          />
 
-        <View style={styles.container}>
-        
-
-        {this.state.products.map(product => {
-          return (
-            
+          <View style={styles.container}>
 
 
-            <View key={product.id} style={styles.listView}>
-              <TouchableOpacity
-               onPress={() => navigate('ProductDetails', {
-                name: product.name,
-                image: product.image,
-                avail: product.inStoreAvailability,
-                price: product.regularPrice,
-                description: product.shortDescription,
-                manufacturer:product.manufacturer,
-                id:product.sku        
+            {this.state.products.map(product => {
+              return (
 
-                // otherParam:product,
-               })}
-               >
 
-                <View style={styles.padding} >
-                  <Image style={styles.image} source={{ uri: product.image }} />
+
+                <View key={product.id} style={styles.listView}>
+                  <TouchableOpacity
+                    onPress={() => navigate('ProductDetails', {
+                      name: product.name,
+                      image: product.image,
+                      avail: product.inStoreAvailability,
+                      price: product.regularPrice,
+                      description: product.shortDescription,
+                      manufacturer: product.manufacturer,
+                      id: product.sku
+
+                      // otherParam:product,
+                    })}
+                  >
+
+                    <View style={styles.padding} >
+                      <Image style={styles.image} source={{ uri: product.image }} />
+                    </View>
+
+                    <View style={styles.border}>
+
+
+                      <View style={styles.text}>
+
+                        <Text style={styles.descriptions}>
+
+
+                          {product.name.substring(0, 50) + "..."}
+                        </Text>
+
+                        <Text style={styles.price}>
+                          {"$ " + product.price}
+                          {product.shortDescription}
+                        </Text>
+
+                      </View>
+
+
+
+
+                    </View>
+                    <Image styles={styles.imageLeft} source={require('./assets/images/chevron-right.png')} />
+
+
+                  </TouchableOpacity>
                 </View>
+              )
+            }
 
-                <View style={styles.border}>
+            )}
 
-
-                  <View style={styles.text}>
-
-                    <Text style={styles.descriptions}>
-
-
-                      {product.name.substring(0, 50) + "..."}
-                    </Text>
-
-                    <Text style={styles.price}>
-                      {"$ " + product.price}
-                      {product.shortDescription}
-                    </Text>
-
-                  </View>
-
-
-
-
-                </View>
-                <Image styles={styles.imageLeft} source={require('./assets/images/chevron-right.png')} />
-
-
-              </TouchableOpacity>
-            </View>
-          )
-        }
-
-        )}
-
-      </View>
+          </View>
         </View>
 
 
-        
+
       </ScrollView>
     )
   }
@@ -181,7 +180,8 @@ const AppStack = createStackNavigator({
     }),
   },
 
-  ProductDetails: { screen: ProductDetails
+  ProductDetails: {
+    screen: ProductDetails
   }
 
 });
@@ -263,12 +263,12 @@ const styles = StyleSheet.create({
     paddingTop: 0,
     paddingBottom: 0,
     padding: 40,
-    
+
   },
 
   listView: {
     alignItems: 'center',
-  
+
     flexDirection: 'row',
     backgroundColor: '#fff',
     marginTop: 10,
@@ -291,7 +291,7 @@ const styles = StyleSheet.create({
     color: 'black',
   },
 
-  price:{
+  price: {
     fontSize: 16,
     textAlign: 'left',
     color: 'green',
