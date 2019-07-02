@@ -4,7 +4,7 @@ import { Image, Text, View, StyleSheet, TouchableOpacity } from 'react-native';
 import Icon from '@expo/vector-icons/FontAwesome'
 import { Button } from 'react-native-elements';
 import { createStackNavigator, createBottomTabNavigator, createAppContainer } from "react-navigation";
-import ProductLocations from './ProductLocations'
+
 
 
 
