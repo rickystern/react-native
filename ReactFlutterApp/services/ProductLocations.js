@@ -1,13 +1,20 @@
 import React, { Component } from 'react';
-import { Text, View } from 'react-native';
-
-export default class HelloWorldApp extends Component {
+import { Platform, StyleSheet, Text, View } from 'react-native';
+import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
+export default
+class App extends React.Component {
   render() {
-    const { navigate } = this.props.navigation;
     return (
-      <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-        <Text>Hello, world!</Text>
-      </View>
+      <MapView
+         style={{ flex: 1 }}
+         provider={PROVIDER_GOOGLE}
+         showsUserLocation
+         initialRegion={{
+         latitude: 18.109581,
+         longitude: -77.297508,
+         latitudeDelta: 0.0922,
+         longitudeDelta: 0.0421}}
+      />
     );
   }
 }

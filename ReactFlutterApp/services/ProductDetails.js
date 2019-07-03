@@ -3,10 +3,23 @@ import React from 'react';
 import { Image, Text, View, StyleSheet, TouchableOpacity } from 'react-native';
 import Icon from '@expo/vector-icons/FontAwesome'
 import { Button } from 'react-native-elements';
-import { createStackNavigator, createBottomTabNavigator, createAppContainer } from "react-navigation";
+import { ScrollView } from 'react-native-gesture-handler';
+import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
+// import * as firebase from 'firebase'
 
 
-
+ // Your web app's Firebase configuration
+//  var firebaseConfig = {
+//     apiKey: "AIzaSyBcBIHWYufIRpgmXGD7Dy3caDUKTh1DLVE",
+//     authDomain: "test-react-35c73.firebaseapp.com",
+//     databaseURL: "https://test-react-35c73.firebaseio.com",
+//     projectId: "test-react-35c73",
+//     storageBucket: "",
+//     // messagingSenderId: "1092522266343",
+//     // appId: "1:1092522266343:web:7d658e58eb4c7f44"
+//   };
+//   // Initialize Firebase
+//   firebase.initializeApp(firebaseConfig);
 
 
 
@@ -53,7 +66,11 @@ class dellaptop extends React.Component {
         const price = navigation.getParam('price')
         const Manufacturer = navigation.getParam('manufacturer')
         return (
-            <View>
+
+                <ScrollView>
+                    <View 
+                style={styles.container}
+            >
 
                 <View  >
                     <Image style={styles.imageDetails} source={{ uri: image }} />
@@ -101,6 +118,8 @@ class dellaptop extends React.Component {
 
 
             </View>
+                </ScrollView>
+            
 
 
         )
@@ -144,6 +163,12 @@ const styles = StyleSheet.create({
 
     },
     
+    container:{
+        //padding: 20,
+        alignItems:'center',
+        height:hp ('125%'),
+        width:wp ('100%')
+    }
 
 
 

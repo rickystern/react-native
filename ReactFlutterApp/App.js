@@ -11,6 +11,7 @@ import ProductLocations from './services/ProductLocations';
 import Cart from './services/Cart';
 import Voice from './services/Voice';
 
+
 // the cards need a call to action
 class AppContainer extends React.Component {
 
@@ -59,6 +60,9 @@ class AppContainer extends React.Component {
     })
 
   }
+
+  
+
   render() {
 
     const { navigate } = this.props.navigation;
