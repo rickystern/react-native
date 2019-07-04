@@ -4,6 +4,7 @@ import {Ionicons} from '@expo/vector-icons';
 
 
 
+
 const WIDTH = Dimensions.get('window').width;
 export const DestinationButton = function(props){
     return(

@@ -44,3 +44,5 @@ const styles = StyleSheet.create({
         alignItems: 'center'
     }
 })
+
+/// location buton not displaying
