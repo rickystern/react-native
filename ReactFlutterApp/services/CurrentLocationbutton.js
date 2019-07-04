@@ -16,7 +16,7 @@ export const CurrentLocationButton = function (props){
          <View style ={[styles.container , {top: HEIGHT- bottom}]}>
 
                         <Icon 
-                        name= "my-location"
+                        name= "map-pin"
                         color="black"
                         size={25}
                         onPress ={()=>{}}
