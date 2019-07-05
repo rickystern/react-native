@@ -12,8 +12,6 @@ import Cart from './services/Cart';
 import Voice from './services/Voice';
 
 
-
-
 // the cards need a call to action
 class AppContainer extends React.Component {
 
@@ -233,12 +231,10 @@ const AppStack = createStackNavigator({
         />
 
       ),
-    
       headerRight: (
         <Icon
           name="user-circle"
           size={30}
-          marginRight={20}
           paddingRight={10}
           justifyContent="center"
         />

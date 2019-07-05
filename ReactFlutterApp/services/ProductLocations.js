@@ -3,9 +3,9 @@ import { Platform, StyleSheet, Text, View } from 'react-native';
 import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
 import { Location } from 'expo';
 import * as Permissions from 'expo-permissions';
-import {locations} from './locations';
 import { DestinationButton } from './DestinationButton';
-import { CurrentLocationButton } from './CurrentLocationbutton'
+import { CurrentLocationButton } from './CurrentLocationbutton';
+import getLocations from './getLocations'
 
 
 
@@ -21,11 +21,69 @@ export default
             mapRegion: { latitude: 37.78825, longitude: -122.4324, latitudeDelta: 0.0922, longitudeDelta: 0.0421 },
             locationResult: null,
             location: {coords: { latitude: 37.78825, longitude: -122.4324}},
-
+            markers: [],
+            filtered:[]
         }
         this._getLocationAsync();
 
     }
+
+    componentDidMount() {
+        this.getLocations();
+    
+      }
+
+    getLocations(){
+        console.log('i go called')
+
+
+        const storelocations = new getLocations();
+        storelocations.getLocations().then((response) =>{
+
+            const storedMarkers =response.data.stores;
+            const mappedMarkers = storedMarkers.filter((store) =>  {
+                 return store.lng !==  null  && store.lat !== null;
+            })
+            .map(store => {
+
+                return{
+                    name: store.name,
+                    latitude: store.lat,
+                    longitude: store.lng,
+                    storeID: store.storeId
+                }
+                
+            },
+            )
+           // console.log('getting stores')
+
+            this.setState({
+                
+                markers:mappedMarkers
+            })
+            //console.log(mappedMarkers)
+
+
+
+        })
+        
+    }
+   
+
+    _filter(Markers){
+      
+    const mappedMarker = Markers.filter(function(marker){
+        return   marker.latitude !== isNull;
+         
+      })
+      
+       console.log( "this is new"+ mappedMarker)
+
+    }
+
+    
+
+    ///added simalr function to get data from location axiusthats all that was changed
 
     _getLocationAsync = async () => {
 
@@ -43,7 +101,7 @@ export default
         //     latitudeDelta: 0.041,
         //     longitudeDelta: 0.021,
         // }
-        console.log("_getLocationAsync was called", location)
+       // console.log("_getLocationAsync was called", location)
         this.setState({ region: location })
 
 
@@ -51,6 +109,9 @@ export default
 
 
     render() {
+
+
+        
         if (this.state.region === null) return <View></View>
         return (
             <View style={styles.container}>
@@ -60,7 +121,7 @@ export default
                 <MapView
                     initialRegion={{ latitude: this.state.region.coords.latitude, longitude: this.state.region.coords.longitude, latitudeDelta: 0.0922, longitudeDelta: 0.0421 }}
                     style={{ flex: 1 }}
-                    // provider={PROVIDER_GOOGLE}
+                     //provider={PROVIDER_GOOGLE}
                     showsUserLocation={true}
                     showsMyLocationButton={true}
                     showsCompass={true}
@@ -70,29 +131,31 @@ export default
                     zoomEnabled={true}
                     rotateEnabled={true}
                     region={{ latitude: this.state.region.coords.latitude, longitude: this.state.region.coords.longitude, latitudeDelta: 0.0922, longitudeDelta: 0.0421 }}
-
-
-
-
                 >
                     <MapView.Marker
                         coordinate={this.state.region.coords}
                         title={"my location"}
                         description={"description"}
                     />
+                    
 
-                    <MapView.Marker
-                        coordinate={{
-                            latitude: 18.0066873,
-                            longitude: -76.7913445
-                        }}
-                        title={"title"}
-                        description={"description"}
-                    />
+                    {this.state.markers.map((marker) => {
+                        return(
 
+                            <MapView.Marker
+                                title={marker.name}
+                                description="This is a description"
+                                coordinate={{
+                                    latitude: marker.latitude,
+                                    longitude: marker.longitude,
+                                }}
+                                />
+                        )
 
-                </MapView>
+                                
+                    })}
 
+                            </MapView>
 
 
 
