@@ -5,7 +5,8 @@ import { Location } from 'expo';
 import * as Permissions from 'expo-permissions';
 import { DestinationButton } from './DestinationButton';
 import { CurrentLocationButton } from './CurrentLocationbutton';
-import getLocations from './getLocations'
+import getLocations from './getLocations';
+import Polyline  from '@mapbox/polyline';
 
 
 
@@ -22,7 +23,7 @@ export default
             locationResult: null,
             location: {coords: { latitude: 37.78825, longitude: -122.4324}},
             markers: [],
-            filtered:[]
+            
         }
         this._getLocationAsync();
 
@@ -50,7 +51,9 @@ export default
                     name: store.name,
                     latitude: store.lat,
                     longitude: store.lng,
-                    storeID: store.storeId
+                    storeID: store.storeId,
+                    number: store.phone,
+                    address: store.address
                 }
                 
             },
@@ -70,16 +73,16 @@ export default
     }
    
 
-    _filter(Markers){
+    // _filter(Markers){
       
-    const mappedMarker = Markers.filter(function(marker){
-        return   marker.latitude !== isNull;
+    // const mappedMarker = Markers.filter(function(marker){
+    //     return   marker.latitude !== isNull;
          
-      })
+    //   })
       
-       console.log( "this is new"+ mappedMarker)
+    //    console.log( "this is new"+ mappedMarker)
 
-    }
+    // }
 
     
 
@@ -133,22 +136,26 @@ export default
                     region={{ latitude: this.state.region.coords.latitude, longitude: this.state.region.coords.longitude, latitudeDelta: 0.0922, longitudeDelta: 0.0421 }}
                 >
                     <MapView.Marker
+                        
                         coordinate={this.state.region.coords}
-                        title={"my location"}
-                        description={"description"}
+                        pinColor= {'#474744'}
+                        title={"ME"}
+                        description={"this markers shows where you are currently"}
                     />
+                   
                     
 
                     {this.state.markers.map((marker) => {
                         return(
 
                             <MapView.Marker
-                                title={marker.name}
-                                description="This is a description"
+                                title={"Best-Buy "+ marker.name}
+                                description={marker.address}
                                 coordinate={{
                                     latitude: marker.latitude,
                                     longitude: marker.longitude,
                                 }}
+                               
                                 />
                         )
 

@@ -5,7 +5,7 @@ export default class locations {
 
     getLocations() {
 
-      return axios.get('https://api.bestbuy.com/v1/stores?apiKey=wgd9fp6cujtdn27wm9k8rtdg&show=hoursAmPm,lat,lng,name,storeId&pageSize=25&format=json')
+      return axios.get('https://api.bestbuy.com/v1/stores?apiKey=wgd9fp6cujtdn27wm9k8rtdg&show=hoursAmPm,lat,lng,name,storeId,phone,address&pageSize=25&format=json')
     }
 }
 

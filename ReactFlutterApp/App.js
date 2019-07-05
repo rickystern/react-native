@@ -79,6 +79,8 @@ class AppContainer extends React.Component {
             placeholder="Type Here..."
             onChangeText={this.updateSearch}
             value={search}
+            lightTheme
+            round
           />
 
           <View style={styles.container}>
