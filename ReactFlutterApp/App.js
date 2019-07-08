@@ -350,7 +350,7 @@ export const Main = createBottomTabNavigator({
     activeTintColor: '#405BDB',
     inactiveTintColor: '#9B9B9B',
     adaptive:'true',
-    backgroundColor:  'transparent'
+  
   },
 }
 );
