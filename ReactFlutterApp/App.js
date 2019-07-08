@@ -29,6 +29,7 @@ class AppContainer extends React.Component {
 
   state = {
     search: '',
+    firstQuery:''
   };
 
   updateSearch = search => {
@@ -69,6 +70,7 @@ class AppContainer extends React.Component {
 
     const { navigate } = this.props.navigation;
     const { search } = this.state;
+    const { firstQuery } = this.state;
 
     return (
 
@@ -83,14 +85,20 @@ class AppContainer extends React.Component {
             value={search}
             lightTheme
             round
+            onChangeText={query => { this.setState({ firstQuery: query }); }}
+            value={firstQuery}
+            // onSearchButtonPress={...}
+            // onCancelButtonPress={...}
           />
          
+       
 
           <View style={styles.container}>
 
 
             {this.state.products.map(product => {
               return (
+               // console.log(firstQuery),//first query is sopposed to store the search value
 
 
 
@@ -250,15 +258,18 @@ const AppStack = createStackNavigator({
         />
         </View>
       ),
+     
 
     }),
   },
 
   ProductLocations:{
     screen:ProductLocations,
-  
-    
-    content: ProductLocations
+    navigationOptions:()=>({
+      title: 'Store Locator'
+    })
+   
+
 },
 
   ProductDetails: {
@@ -267,6 +278,31 @@ const AppStack = createStackNavigator({
 
   Cart: {
     screen: Cart
+  },
+
+  Voice: {
+    screen: Voice,
+    navigationOptions: () => ({
+
+        title: `DuckBuy`,
+        headerTitleStyle: {
+        textAlign: "center",
+        flex: 1,
+
+      },
+      headerRight: (
+        <View style={{padding:12}}>
+        <Icon
+          name="user-circle"
+          size={30}
+          paddingRight={10}
+          justifyContent="center"
+          onPress={() => Alert.alert('update coming soon!')}
+        />
+        </View>
+      )
+    })
+    
   },
 
 
@@ -297,7 +333,7 @@ export const Main = createBottomTabNavigator({
   },
 
   Voice: {
-    screen:  AppStack,
+    screen: Voice,
     navigationOptions: () => ({
       tabBarIcon: ({ tintColor }) => (
         <Icon
@@ -455,3 +491,11 @@ const styles = StyleSheet.create({
 });
 
 
+  // "androidStatusBar": {
+      
+    //   "barStyle": #fcdc00,
+  
+    //   "backgroundColor": #fcdc00
+    // }
+    
+  

@@ -28,6 +28,8 @@ import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-nat
 class dellaptop extends React.Component {
     static navigationOptions = {
         headerTitle: 'Duck Buy',
+
+    
         headerRight: (
             <View style={{padding:12}}>
             <Icon
@@ -117,7 +119,7 @@ class dellaptop extends React.Component {
 
                         <View style={styles.button}>
                             <Button
-                                 onPress={() => alert('update coming soon!')}
+                                 onPress={() => Alert.alert('update coming soon!')}
                                 style={styles.button}
                                 title="Buy Now"
                                 color="fcdc00"

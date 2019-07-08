@@ -124,14 +124,14 @@ export default
                 <MapView
                     initialRegion={{ latitude: this.state.region.coords.latitude, longitude: this.state.region.coords.longitude, latitudeDelta: 0.0922, longitudeDelta: 0.0421 }}
                     style={{ flex: 1 }}
-                     //provider={PROVIDER_GOOGLE}
-                   showsUserLocation={true}
+                    provider={PROVIDER_GOOGLE}
+                    showsUserLocation={true}
                     showsMyLocationButton={true}
                     showsCompass={true}
                     followsUserLocation={true}
                     loadingEnabled={true}
                     toolbarEnabled={true}
-                    zoomEnabled={true}
+                    //oomEnabled={true}
                     rotateEnabled={true}
                     region={{ latitude: this.state.region.coords.latitude, longitude: this.state.region.coords.longitude, latitudeDelta: 0.0922, longitudeDelta: 0.0421 }}
                 >
