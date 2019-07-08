@@ -125,7 +125,7 @@ export default
                     initialRegion={{ latitude: this.state.region.coords.latitude, longitude: this.state.region.coords.longitude, latitudeDelta: 0.0922, longitudeDelta: 0.0421 }}
                     style={{ flex: 1 }}
                      //provider={PROVIDER_GOOGLE}
-                    showsUserLocation={true}
+                   // showsUserLocation={true}
                     showsMyLocationButton={true}
                     showsCompass={true}
                     followsUserLocation={true}
@@ -154,6 +154,8 @@ export default
                                 coordinate={{
                                     latitude: marker.latitude,
                                     longitude: marker.longitude,
+                                    longitudeDelta: 0.09,
+                                    latitudeDelta:0.09
                                 }}
                                
                                 />

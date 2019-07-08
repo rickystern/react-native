@@ -1,14 +1,14 @@
 
 import React from 'react';
-import { Image, Text, View, StyleSheet, TouchableOpacity } from 'react-native';
+import { Image, Text, View, StyleSheet, TouchableOpacity, Alert } from 'react-native';
 import Icon from '@expo/vector-icons/FontAwesome'
 import { Button } from 'react-native-elements';
 import { ScrollView } from 'react-native-gesture-handler';
-import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
+import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 // import * as firebase from 'firebase'
 
 
- // Your web app's Firebase configuration
+// Your web app's Firebase configuration
 //  var firebaseConfig = {
 //     apiKey: "AIzaSyBcBIHWYufIRpgmXGD7Dy3caDUKTh1DLVE",
 //     authDomain: "test-react-35c73.firebaseapp.com",
@@ -29,35 +29,34 @@ class dellaptop extends React.Component {
     static navigationOptions = {
         headerTitle: 'Duck Buy',
         headerRight: (
+            <View style={{padding:12}}>
             <Icon
-          name="user-circle"
-          onPress={() => alert('This is a button!')}
-          size={30}
-          padding={20}
-          paddingRight={10}
-          justifyContent="center"
-        />
+                name="user-circle"
+                onPress={() => Alert.alert('update coming soon!')}
+                size={30}
+            />
+            </View>
         ),
 
-        
-        
-    
-      };
-      
-  
-      state = {
-          toggle:false
-      }
-      onPress(){
-          const newState= !this.state.toggle;
-          this.setState({toggle:newState})
-      }
+
+
+
+    };
+
+
+    state = {
+        toggle: false
+    }
+    onPress() {
+        const newState = !this.state.toggle;
+        this.setState({ toggle: newState })
+    }
 
 
     render() {
         const { navigate } = this.props.navigation;
-        const {toggle}= this.state;
-        const IconColor= toggle?"red":"black";
+        const { toggle } = this.state;
+        const IconColor = toggle ? "red" : "black";
         const { navigation } = this.props;
         const id = navigation.getParam('id')
         const image = navigation.getParam('image')
@@ -67,21 +66,22 @@ class dellaptop extends React.Component {
         const Manufacturer = navigation.getParam('manufacturer')
         return (
 
-                <ScrollView>
-                    <View 
-                style={styles.container}
-            >
-
-                <View  >
-                    <Image style={styles.imageDetails} source={{ uri: image }} />
-                </View>
-                <Text style={styles.textdetails}>
-                    {name}
-                </Text>
-                <Text>{description}</Text>
+            <ScrollView>
+                <View
+                    style={styles.container}
+                >
                     
 
-                <View style={styles.heart}>
+                    <View  >
+                        <Image style={styles.imageDetails} source={{ uri: image }} />
+                    </View>
+                    <Text style={styles.textdetails}>
+                        {name}
+                    </Text>
+                    <Text>{description}</Text>
+
+
+                    <View style={styles.heart}>
 
 
                         <View>
@@ -91,35 +91,48 @@ class dellaptop extends React.Component {
                                 onPress={() => this.onPress()}
                             >
 
-                                    <Icon
-                                        style={{color:IconColor}}
-                                        size={40}
-                                        name='heart'
-                                       
-                                    />
-                                    
+                                <Icon
+                                    style={{ color: IconColor }}
+                                    size={40}
+                                    name='heart'
+
+                                />
+
                             </TouchableOpacity>
 
-                        </View>    
+                        </View >
+                        
+                        <TouchableOpacity>
+                        <View  style={{padding:20, paddingLeft:90}}>
+                                <Icon
+                                onPress={() => navigate('ProductLocations', {})}
+                                    style={{ color: 'black' }}
+                                    size={40}
+                                    name='map-marker'
 
-                    <View style={styles.button}>
-                        <Button
-                          onPress={() => navigate('ProductLocations', {})}
-                            style={styles.button}
-                            title="Buy Now"
-                            color="#194d33"
-                        />
+                                 />
+                        </View>
+                        </TouchableOpacity>
+
+
+                        <View style={styles.button}>
+                            <Button
+                                 onPress={() => alert('update coming soon!')}
+                                style={styles.button}
+                                title="Buy Now"
+                                color="fcdc00"
+                            />
+                        </View>
+
                     </View>
 
+
+
+
+
                 </View>
+            </ScrollView>
 
-
-
-
-
-            </View>
-                </ScrollView>
-            
 
 
         )
@@ -147,27 +160,31 @@ const styles = StyleSheet.create({
     },
 
     heart: {
-        paddingLeft: 100,
+        paddingLeft: 90,
+        paddingRight:10,
         marginLeft: 10,
         alignItems: 'center',
         flexDirection: 'row',
+        justifyContent:'space-between',
+        marginBottom:30
 
 
 
     },
     button: {
         padding: 30,
+        paddingLeft:10,
         margin: 50,
         alignItems: 'center',
         justifyContent: 'center',
 
     },
-    
-    container:{
+
+    container: {
         //padding: 20,
-        alignItems:'center',
-        height:hp ('125%'),
-        width:wp ('100%')
+        alignItems: 'center',
+        height: hp('125%'),
+        width: wp('100%')
     }
 
 

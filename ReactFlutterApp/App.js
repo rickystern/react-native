@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { TouchableRipple } from 'react-native-paper';
-import { Image, Text, View, StyleSheet, ScrollView, Button, TouchableOpacity, Alert,Linking   } from 'react-native';
+import { Image, Text, View, StyleSheet, ScrollView, Button, TouchableOpacity, Alert ,Linking   } from 'react-native';
 import BestBuyservice from './services/bestbuyservice';
 import { createStackNavigator, createBottomTabNavigator, createAppContainer } from "react-navigation";
 import ProductDetails from './services/ProductDetails';
@@ -9,7 +9,8 @@ import Icon from '@expo/vector-icons/FontAwesome';
 import { SearchBar } from 'react-native-elements';
 import ProductLocations from './services/ProductLocations';
 import Cart from './services/Cart';
-import Voice from './services/Voice';
+import Voice from './services/Voice'
+
 
 
 // the cards need a call to action
@@ -64,6 +65,7 @@ class AppContainer extends React.Component {
   
 
   render() {
+ 
 
     const { navigate } = this.props.navigation;
     const { search } = this.state;
@@ -71,7 +73,7 @@ class AppContainer extends React.Component {
     return (
 
 
-
+      
       <ScrollView>
 
         <View>
@@ -82,6 +84,7 @@ class AppContainer extends React.Component {
             lightTheme
             round
           />
+         
 
           <View style={styles.container}>
 
@@ -151,6 +154,8 @@ class AppContainer extends React.Component {
                                  {"$ " + product.price}
                                   {product.shortDescription}
                                </Text>
+                               
+                      
 
                                <Button
                                   onPress={() => navigate('ProductDetails', {
@@ -165,7 +170,7 @@ class AppContainer extends React.Component {
                                     // otherParam:product,
                                   })}
                                   title="Veiw"
-                                  color="#194d33"
+                                  color="#fcdc00"
                                   />
 
                               </View>
@@ -235,12 +240,15 @@ const AppStack = createStackNavigator({
 
       ),
       headerRight: (
+        <View style={{padding:12}}>
         <Icon
           name="user-circle"
           size={30}
           paddingRight={10}
           justifyContent="center"
+          onPress={() => Alert.alert('update coming soon!')}
         />
+        </View>
       ),
 
     }),
@@ -248,8 +256,9 @@ const AppStack = createStackNavigator({
 
   ProductLocations:{
     screen:ProductLocations,
+  
     
-   
+    content: ProductLocations
 },
 
   ProductDetails: {
@@ -294,7 +303,8 @@ export const Main = createBottomTabNavigator({
         <Icon
           name="microphone" ///doesnt seem to allow the outlineof icons
           color={tintColor}
-          size={30}
+          size={25}
+          paddingTop= {10}
         />
       )
     })
@@ -303,18 +313,26 @@ export const Main = createBottomTabNavigator({
 
   Cart: {
     screen: Cart,
+    
     navigationOptions: () => ({
-
-
+      
       tabBarIcon: ({ tintColor }) => (
 
+        <View>
 
-        <Icon
+       <View style={{position:'absolute', height:20, width:20, borderRadius:10, backgroundColor:'#fcdc00',
+                      right:15, bottom:15, alignItems:'center', justifyContent:'center',zIndex:2000}}>
+          <View>
+            <Text style={{fontSize:7, fontWeight:'bold'}}>0</Text>
+          </View>
+
+       </View>
+     <Icon
           name="shopping-cart"
           color={tintColor}
-          size={30}
+          size={25}
         />
-
+      </View>
       )
     })
 
@@ -330,7 +348,9 @@ export const Main = createBottomTabNavigator({
     activeBackgroundColor: '#fff',
     inactiveBackgroundColor: '#fff',
     activeTintColor: '#405BDB',
-    inactiveTintColor: '#9B9B9B'
+    inactiveTintColor: '#9B9B9B',
+    adaptive:'true',
+    backgroundColor:  'transparent'
   },
 }
 );
