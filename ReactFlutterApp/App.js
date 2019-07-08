@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { TouchableRipple } from 'react-native-paper';
-import { Image, Text, View, StyleSheet, ScrollView, Button, TouchableOpacity, Alert } from 'react-native';
+import { Image, Text, View, StyleSheet, ScrollView, Button, TouchableOpacity, Alert,Linking   } from 'react-native';
 import BestBuyservice from './services/bestbuyservice';
 import { createStackNavigator, createBottomTabNavigator, createAppContainer } from "react-navigation";
 import ProductDetails from './services/ProductDetails';
@@ -226,11 +226,12 @@ const AppStack = createStackNavigator({
 
       },
       headerLeft: (
-
-        <Image
-          style={styles.imageheader}
-          source={require('./assets/images/YRDduck.png')}
-        />
+          <TouchableOpacity onPress={ ()=> Linking.openURL('https://www.realdecoy.com/jamaica/') }>
+            <Image
+              style={styles.imageheader}
+              source={require('./assets/images/YRDduck.png')}
+            />
+          </TouchableOpacity>
 
       ),
       headerRight: (
@@ -246,7 +247,9 @@ const AppStack = createStackNavigator({
   },
 
   ProductLocations:{
-    screen:ProductLocations
+    screen:ProductLocations,
+    
+   
 },
 
   ProductDetails: {
@@ -256,6 +259,8 @@ const AppStack = createStackNavigator({
   Cart: {
     screen: Cart
   },
+
+
   // Voice: {
   //   screen: Voice
   // }
@@ -266,6 +271,7 @@ const AppStack = createStackNavigator({
 
 export const Main = createBottomTabNavigator({
 
+  
 
   Home: {
     screen: AppStack,
@@ -315,6 +321,17 @@ export const Main = createBottomTabNavigator({
   },
 
 
+},
+{
+  initialRouteName: 'Home',
+  swipeEnabled: true,
+  animationEnabled: true,
+  tabBarOptions: {
+    activeBackgroundColor: '#fff',
+    inactiveBackgroundColor: '#fff',
+    activeTintColor: '#405BDB',
+    inactiveTintColor: '#9B9B9B'
+  },
 }
 );
 
