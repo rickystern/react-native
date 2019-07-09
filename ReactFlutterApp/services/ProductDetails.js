@@ -5,25 +5,6 @@ import Icon from '@expo/vector-icons/FontAwesome'
 import { Button } from 'react-native-elements';
 import { ScrollView } from 'react-native-gesture-handler';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
-// import * as firebase from 'firebase'
-
-
-// Your web app's Firebase configuration
-//  var firebaseConfig = {
-//     apiKey: "AIzaSyBcBIHWYufIRpgmXGD7Dy3caDUKTh1DLVE",
-//     authDomain: "test-react-35c73.firebaseapp.com",
-//     databaseURL: "https://test-react-35c73.firebaseio.com",
-//     projectId: "test-react-35c73",
-//     storageBucket: "",
-//     // messagingSenderId: "1092522266343",
-//     // appId: "1:1092522266343:web:7d658e58eb4c7f44"
-//   };
-//   // Initialize Firebase
-//   firebase.initializeApp(firebaseConfig);
-
-
-
-
 
 class dellaptop extends React.Component {
     static navigationOptions = {
@@ -39,9 +20,6 @@ class dellaptop extends React.Component {
             />
             </View>
         ),
-
-
-
 
     };
 
@@ -66,23 +44,27 @@ class dellaptop extends React.Component {
         const description = navigation.getParam('description')
         const price = navigation.getParam('price')
         const Manufacturer = navigation.getParam('manufacturer')
+
+        console.log("this shoulsd be price"+ price);
         return (
 
             <ScrollView>
                 <View
                     style={styles.container}
                 >
-                    
-
                     <View  >
                         <Image style={styles.imageDetails} source={{ uri: image }} />
                     </View>
+
                     <Text style={styles.textdetails}>
                         {name}
                     </Text>
-                    <Text>{description}</Text>
 
-
+                    <Text>
+                        {description}
+                   {price}
+                    </Text>
+                    
                     <View style={styles.heart}>
 
 
@@ -155,7 +137,6 @@ const styles = StyleSheet.create({
     },
     textdetails: {
         padding: 15,
-        // marginLeft: 5,
         textAlign: 'center',
         fontSize: 16,
         fontWeight: 'bold'

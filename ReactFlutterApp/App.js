@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { Image, Text, View, StyleSheet, ScrollView, Button, TouchableOpacity, Alert ,Linking   } from 'react-native';
+import { Image, Text, View, StyleSheet, ScrollView, Button, TouchableOpacity, Alert, Linking } from 'react-native';
 import BestBuyservice from './services/bestbuyservice';
 import { createStackNavigator, createBottomTabNavigator, createAppContainer } from "react-navigation";
 import ProductDetails from './services/ProductDetails';
@@ -9,17 +9,10 @@ import { SearchBar } from 'react-native-elements';
 import ProductLocations from './services/ProductLocations';
 import Cart from './services/Cart';
 import Voice from './services/Voice';
-
-
-
-
-
-// the cards need a call to action
 class AppContainer extends React.Component {
 
   constructor(props) {
     super(props)
-    // this.products = [];
     this.state = { products: [] };
   }
 
@@ -30,7 +23,7 @@ class AppContainer extends React.Component {
 
   state = {
     search: '',
-    firstQuery:''
+    firstQuery: ''
   };
 
   updateSearch = search => {
@@ -38,7 +31,7 @@ class AppContainer extends React.Component {
   };
 
 
-   getProducts(firstQuery) { //expot because i want the other page to have acees to these variables 
+  getProducts(firstQuery) {
     const bestBuyService = new BestBuyservice();
     bestBuyService.getProducts(firstQuery).then(async (response) => {
 
@@ -55,7 +48,6 @@ class AppContainer extends React.Component {
 
         }
       });
-      console.log(mappedProducts)
       await this.setState({
         products: mappedProducts
       })
@@ -64,11 +56,11 @@ class AppContainer extends React.Component {
 
   }
 
- 
-  
+
+
 
   render() {
- 
+
 
     const { navigate } = this.props.navigation;
     const { search } = this.state;
@@ -77,35 +69,28 @@ class AppContainer extends React.Component {
     return (
 
 
-      
+
       <ScrollView>
 
         <View>
-      
+
           <SearchBar
             placeholder="Type Here..."
             onChangeText={this.updateSearch}
             value={search}
             lightTheme
+            inputStyle={{backgroundColor: 'white'}}
+            containerStyle={{ backgroundColor: 'white'  }}
             round
             onChangeText={query => { this.setState({ firstQuery: query }); }}
             value={firstQuery}
-            onSubmitEditing={()=>this.getProducts(firstQuery)}
-          //   onSearchButtonPress={console.log(firstQuery)}
+            onSubmitEditing={() => this.getProducts(firstQuery)}
             onCancelButtonPress={console.log(firstQuery)}
-           />
-         
-       
+          />
 
           <View style={styles.container}>
-
-
             {this.state.products.map(product => {
               return (
-               // console.log(firstQuery),//first query is sopposed to store the search value
-             
-
-
                 <View key={product.id} style={styles.listView}>
                   <TouchableOpacity
                     onPress={() => navigate('ProductDetails', {
@@ -116,114 +101,78 @@ class AppContainer extends React.Component {
                       description: product.shortDescription,
                       manufacturer: product.manufacturer,
                       id: product.sku
-
-                      // otherParam:product,
                     })}
                   >
-                      {/* <TouchableOpacity
-                      onPress={() => navigate('ProductDetails', {
-                        name: product.name,
-                        image: product.image,
-                        avail: product.inStoreAvailability,
-                        price: product.regularPrice,
-                        description: product.shortDescription,
-                        manufacturer: product.manufacturer,
-                        id: product.sku
-  
-                        // otherParam:product,
-                      })}> */}
-
-                      <View style={styles.padding} >
+                    <View style={styles.padding} >
                       <Image style={styles.image} source={{ uri: product.image }} />
                     </View>
-                      </TouchableOpacity>
+                  </TouchableOpacity>
+                  <TouchableOpacity
+                                        onPress={() => navigate('ProductDetails', {
+                                          name: product.name,
+                                          image: product.image,
+                                          avail: product.inStoreAvailability,
+                                          price: product.price,
+                                          description: product.shortDescription,
+                                          manufacturer: product.manufacturer,
+                                          id: product.sku
+                                        })}>
+
+                  <View style={styles.border}>
+
+                   
+
+
+                      <View style={styles.text}>
+
+                        <Text style={styles.descriptions}>
+                          {product.name.substring(0, 50) + "..."}
+                        </Text>
+
+                        <Text style={styles.price}>
+                          {"$ " + product.price} {'      '}{'       ' + product.avail !== 'false' ? <Text>In Stock</Text> : <Text style={{ color: 'red' }}> OutOfStock</Text>}
+                          {product.shortDescription}
+                        </Text>
+
+                        <Button
+                          title="Veiw"
+                          color="#fcdc00"
+                        />
+
+                      </View>
+
+
                     
 
-                    <View style={styles.border}>
+                  </View>
+                  </TouchableOpacity>
 
-                      <TouchableOpacity
-                      onPress={() => navigate('ProductDetails', {
-                        name: product.name,
-                        image: product.image,
-                        avail: product.inStoreAvailability,
-                        price: product.regularPrice,
-                        description: product.shortDescription,
-                        manufacturer: product.manufacturer,
-                        id: product.sku
-  
-                        // otherParam:product,
-                      })}>
-
-                            
-                          <View style={styles.text}>
-
-                           <Text style={styles.descriptions}>
-                               {product.name.substring(0, 50) + "..."}
-                            </Text>
-
-                             <Text style={styles.price}>
-                                 {"$ " + product.price} {'      '}{'       ' + product.avail !== 'false' ? <Text>In Stock</Text> : <Text style={{color:'red'}}> OutOfStock</Text> }
-                                  {product.shortDescription}
-                               </Text>
-                              
-                              
-                      
-
-                               <Button
-                                  onPress={() => navigate('ProductDetails', {
-                                    name: product.name,
-                                    image: product.image,
-                                    avail: product.inStoreAvailability,
-                                    price: product.regularPrice,
-                                    description: product.shortDescription,
-                                    manufacturer: product.manufacturer,
-                                    id: product.sku
-              
-                                    // otherParam:product,
-                                  })}
-                                  title="Veiw"
-                                  color="#fcdc00"
-                                  />
-
-                              </View>
+                  <TouchableOpacity onPress={() => navigate('ProductDetails', {
+                    name: product.name,
+                    image: product.image,
+                    avail: product.inStoreAvailability,
+                    price: product.regularPrice,
+                    description: product.shortDescription,
+                    manufacturer: product.manufacturer,
+                    id: product.sku
 
 
-                      </TouchableOpacity>
+                  })}>
+                    <Image styles={styles.imageLeft} source={require('./assets/images/chevron-right.png')} />
+                  </TouchableOpacity>
 
-                    </View>
-
-                    <TouchableOpacity onPress={() => navigate('ProductDetails', {
-                      name: product.name,
-                      image: product.image,
-                      avail: product.inStoreAvailability,
-                      price: product.regularPrice,
-                      description: product.shortDescription,
-                      manufacturer: product.manufacturer,
-                      id: product.sku
-
-                      // otherParam:product,
-                    })}>
-                        <Image styles={styles.imageLeft} source={require('./assets/images/chevron-right.png')} />
-                    </TouchableOpacity>
-                    
-
-
-                  {/* </TouchableOpacity> */}
                 </View>
 
-              
-                
+
+
               );
-              
+
             }
 
             )}
 
           </View>
         </View>
-
-
-
       </ScrollView>
     )
   }
@@ -247,68 +196,64 @@ const AppStack = createStackNavigator({
 
       },
       headerLeft: (
-          <TouchableOpacity onPress={ ()=> Linking.openURL('https://www.realdecoy.com/jamaica/') }>
-            <Image
-              style={styles.imageheader}
-              source={require('./assets/images/YRDduck.png')}
-            />
-          </TouchableOpacity>
+        <TouchableOpacity onPress={() => Linking.openURL('https://www.realdecoy.com/jamaica/')}>
+          <Image
+            style={styles.imageheader}
+            source={require('./assets/images/YRDduck.png')}
+          />
+        </TouchableOpacity>
 
       ),
       headerRight: (
-        <View style={{padding:12}}>
-        <Icon
-          name="user-circle"
-          size={30}
-          paddingRight={10}
-          justifyContent="center"
-          onPress={() => Alert.alert('update coming soon!')}
-        />
+        <View style={{ padding: 12 }}>
+          <Icon
+            name="user-circle"
+            size={30}
+            paddingRight={10}
+            justifyContent="center"
+            onPress={() => Alert.alert('update coming soon!')}
+          />
         </View>
       ),
-     
+
 
     }),
   },
 
-  ProductLocations:{
-    screen:ProductLocations,
-    // navigationOptions:()=>({
-    //   title: 'Store Locator'
-    // })
-
-    defaultNavigationOptions: {
+  ProductLocations: {
+    screen: ProductLocations,
+    navigationOptions: () => ({
       title: 'Store Locator',
       tabBarVisible: false,
-    },
-   
+    })
 
-},
+
+  },
 
   ProductDetails: {
     screen: ProductDetails,
-    navigationOptions:()=>({
-        title: 'is'
+    navigationOptions: () => ({
+      title: 'is'
     })
 
 
 
-  
+
   },
 
   Cart: {
     screen: Cart,
-    navigationOptions:()=>({
-      title:'DuckBuy',
+    navigationOptions: () => ({
+      title: 'DuckBuy',
       headerRight: (
-        <View style={{padding:12}}>
-        <Icon
-          name="user-circle"
-          size={30}
-          paddingRight={10}
-          justifyContent="center"
-          onPress={() => Alert.alert('update coming soon!')}
-        />
+        <View style={{ padding: 12 }}>
+          <Icon
+            name="user-circle"
+            size={30}
+            paddingRight={10}
+            justifyContent="center"
+            onPress={() => Alert.alert('update coming soon!')}
+          />
         </View>
       )
     })
@@ -318,39 +263,33 @@ const AppStack = createStackNavigator({
     screen: Voice,
     navigationOptions: () => ({
 
-        title: `DuckBuy`,
-        headerTitleStyle: {
+      title: `DuckBuy`,
+      headerTitleStyle: {
         textAlign: "center",
         flex: 1,
 
       },
       headerRight: (
-        <View style={{padding:12}}>
-        <Icon
-          name="user-circle"
-          size={30}
-          paddingRight={10}
-          justifyContent="center"
-          onPress={() => Alert.alert('update coming soon!')}
-        />
+        <View style={{ padding: 12 }}>
+          <Icon
+            name="user-circle"
+            size={30}
+            paddingRight={10}
+            justifyContent="center"
+            onPress={() => Alert.alert('update coming soon!')}
+          />
         </View>
       )
     })
-    
+
   },
-
-
-  // Voice: {
-  //   screen: Voice
-  // }
-
 });
 
 
 
 export const Main = createBottomTabNavigator({
 
-  
+
 
   Home: {
     screen: AppStack,
@@ -371,10 +310,10 @@ export const Main = createBottomTabNavigator({
     navigationOptions: () => ({
       tabBarIcon: ({ tintColor }) => (
         <Icon
-          name="microphone" ///doesnt seem to allow the outlineof icons
+          name="microphone"
           color={tintColor}
           size={25}
-          paddingTop= {10}
+          paddingTop={10}
         />
       )
     })
@@ -383,26 +322,28 @@ export const Main = createBottomTabNavigator({
 
   Cart: {
     screen: Cart,
-    
+
     navigationOptions: () => ({
-      
+
       tabBarIcon: ({ tintColor }) => (
 
-        <View>
+        <View style={{ color: tintColor }}>
 
-       <View style={{position:'absolute', height:20, width:20, borderRadius:10, backgroundColor:'#fcdc00',
-                      right:15, bottom:15, alignItems:'center', justifyContent:'center',zIndex:2000}}>
-          <View>
-            <Text style={{fontSize:7, fontWeight:'bold'}}>0</Text>
+          <View style={{
+            position: 'absolute', height: 20, width: 20, borderRadius: 10, backgroundColor: '#fcdc00',
+            right: 15, bottom: 15, alignItems: 'center', justifyContent: 'center', zIndex: 2000
+          }}>
+            <View>
+              <Text style={{ fontSize: 7, fontWeight: 'bold' }}>0</Text>
+            </View>
+
           </View>
-
-       </View>
-     <Icon
-          name="shopping-cart"
-          color={tintColor}
-          size={25}
-        />
-      </View>
+          <Icon
+            name="shopping-cart"
+            color={tintColor}
+            size={25}
+          />
+        </View>
       )
     })
 
@@ -410,19 +351,19 @@ export const Main = createBottomTabNavigator({
 
 
 },
-{
-  initialRouteName: 'Home',
-  swipeEnabled: true,
-  animationEnabled: true,
-  tabBarOptions: {
-    activeBackgroundColor: '#fff',
-    inactiveBackgroundColor: '#fff',
-    activeTintColor: '#405BDB',
-    inactiveTintColor: '#9B9B9B',
-    adaptive:'true',
-  
-  },
-}
+  {
+    initialRouteName: 'Home',
+    swipeEnabled: true,
+    animationEnabled: true,
+    tabBarOptions: {
+      activeBackgroundColor: '#fff',
+      inactiveBackgroundColor: '#fff',
+      activeTintColor: '#405BDB',
+      inactiveTintColor: '#9B9B9B',
+      adaptive: 'true',
+
+    },
+  }
 );
 
 
@@ -481,11 +422,12 @@ const styles = StyleSheet.create({
   },
   image: {
     alignItems: 'center',
-    // justifyContent: "space-around",
     padding: 30,
     width: 120,
     height: 80,
     marginLeft: 150,
+    resizeMode: 'contain',
+   
   },
 
   border: {
@@ -510,7 +452,6 @@ const styles = StyleSheet.create({
 
   text: {
     padding: 20,
-    // marginLeft: 5,
     textAlign: 'center',
     fontSize: 30,
     fontWeight: 'bold'
@@ -520,8 +461,5 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   }
-
-
 });
 
-  
