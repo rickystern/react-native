@@ -1,6 +1,5 @@
 
 import React from 'react';
-import { TouchableRipple } from 'react-native-paper';
 import { Image, Text, View, StyleSheet, ScrollView, Button, TouchableOpacity, Alert ,Linking   } from 'react-native';
 import BestBuyservice from './services/bestbuyservice';
 import { createStackNavigator, createBottomTabNavigator, createAppContainer } from "react-navigation";
@@ -9,7 +8,9 @@ import Icon from '@expo/vector-icons/FontAwesome';
 import { SearchBar } from 'react-native-elements';
 import ProductLocations from './services/ProductLocations';
 import Cart from './services/Cart';
-import Voice from './services/Voice'
+import Voice from './services/Voice';
+
+
 
 
 
@@ -37,9 +38,9 @@ class AppContainer extends React.Component {
   };
 
 
-  getProducts() { //expot because i want the other page to have acees to these variables 
+   getProducts(firstQuery) { //expot because i want the other page to have acees to these variables 
     const bestBuyService = new BestBuyservice();
-    bestBuyService.getProducts().then((response) => {
+    bestBuyService.getProducts(firstQuery).then(async (response) => {
 
       const products = response.data.products;
       const mappedProducts = products.map(product => {
@@ -53,9 +54,9 @@ class AppContainer extends React.Component {
           id: product.sku
 
         }
-      })
-      console.log("bestBuyService")
-      this.setState({
+      });
+      console.log(mappedProducts)
+      await this.setState({
         products: mappedProducts
       })
 
@@ -63,6 +64,7 @@ class AppContainer extends React.Component {
 
   }
 
+ 
   
 
   render() {
@@ -79,6 +81,7 @@ class AppContainer extends React.Component {
       <ScrollView>
 
         <View>
+      
           <SearchBar
             placeholder="Type Here..."
             onChangeText={this.updateSearch}
@@ -87,9 +90,10 @@ class AppContainer extends React.Component {
             round
             onChangeText={query => { this.setState({ firstQuery: query }); }}
             value={firstQuery}
-            // onSearchButtonPress={...}
-            // onCancelButtonPress={...}
-          />
+            onSubmitEditing={()=>this.getProducts(firstQuery)}
+          //   onSearchButtonPress={console.log(firstQuery)}
+            onCancelButtonPress={console.log(firstQuery)}
+           />
          
        
 
@@ -99,7 +103,7 @@ class AppContainer extends React.Component {
             {this.state.products.map(product => {
               return (
                // console.log(firstQuery),//first query is sopposed to store the search value
-
+             
 
 
                 <View key={product.id} style={styles.listView}>
@@ -132,7 +136,6 @@ class AppContainer extends React.Component {
                       <View style={styles.padding} >
                       <Image style={styles.image} source={{ uri: product.image }} />
                     </View>
-
                       </TouchableOpacity>
                     
 
@@ -159,10 +162,11 @@ class AppContainer extends React.Component {
                             </Text>
 
                              <Text style={styles.price}>
-                                 {"$ " + product.price}
+                                 {"$ " + product.price} {'      '}{'       ' + product.avail !== 'false' ? <Text>In Stock</Text> : <Text style={{color:'red'}}> OutOfStock</Text> }
                                   {product.shortDescription}
                                </Text>
-                               
+                              
+                              
                       
 
                                <Button
@@ -206,7 +210,11 @@ class AppContainer extends React.Component {
 
                   {/* </TouchableOpacity> */}
                 </View>
-              )
+
+              
+                
+              );
+              
             }
 
             )}
@@ -265,19 +273,45 @@ const AppStack = createStackNavigator({
 
   ProductLocations:{
     screen:ProductLocations,
-    navigationOptions:()=>({
-      title: 'Store Locator'
-    })
+    // navigationOptions:()=>({
+    //   title: 'Store Locator'
+    // })
+
+    defaultNavigationOptions: {
+      title: 'Store Locator',
+      tabBarVisible: false,
+    },
    
 
 },
 
   ProductDetails: {
-    screen: ProductDetails
+    screen: ProductDetails,
+    navigationOptions:()=>({
+        title: 'is'
+    })
+
+
+
+  
   },
 
   Cart: {
-    screen: Cart
+    screen: Cart,
+    navigationOptions:()=>({
+      title:'DuckBuy',
+      headerRight: (
+        <View style={{padding:12}}>
+        <Icon
+          name="user-circle"
+          size={30}
+          paddingRight={10}
+          justifyContent="center"
+          onPress={() => Alert.alert('update coming soon!')}
+        />
+        </View>
+      )
+    })
   },
 
   Voice: {
@@ -490,12 +524,4 @@ const styles = StyleSheet.create({
 
 });
 
-
-  // "androidStatusBar": {
-      
-    //   "barStyle": #fcdc00,
-  
-    //   "backgroundColor": #fcdc00
-    // }
-    
   

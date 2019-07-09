@@ -3,9 +3,10 @@ import axios from 'axios';
 
 export default class BestBuyservice {
 
-    getProducts() {
+    getProducts(searchTerm="laptop") {
 
-        return axios.get('https://api.bestbuy.com/v1/products((categoryPath.id=abcat0502000))?apiKey=wgd9fp6cujtdn27wm9k8rtdg&sort=image.asc&show=image,inStoreAvailability,manufacturer,name,sku,regularPrice,shortDescription&pageSize=25&format=json');
-
+        return axios.get(`https://api.bestbuy.com/v1/products((search=${searchTerm}))?apiKey=wgd9fp6cujtdn27wm9k8rtdg&sort=regularPrice.dsc&show=image,name,regularPrice,sku,shortDescription,inStoreAvailability,manufacturer&pageSize=30&format=json`);
     }
+
+
 }

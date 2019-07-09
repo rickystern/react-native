@@ -7,6 +7,9 @@ import { DestinationButton } from './DestinationButton';
 import { CurrentLocationButton } from './CurrentLocationbutton';
 import getLocations from './getLocations';
 import Polyline  from '@mapbox/polyline';
+import {Button, icon} from 'native-base';
+import getDirections from 'react-native-google-maps-directions'
+import Icon from 'react-native-ionicons';
 
 
 
@@ -26,12 +29,12 @@ export default
             
         }
         this._getLocationAsync();
-
+      
     }
 
     componentDidMount() {
         this.getLocations();
-    
+        
       }
 
     getLocations(){
@@ -120,7 +123,8 @@ export default
             <View style={styles.container}>
 
                 <DestinationButton />
-                <CurrentLocationButton />
+                  {/* <CurrentLocationButton /> */}
+
                 <MapView
                     initialRegion={{ latitude: this.state.region.coords.latitude, longitude: this.state.region.coords.longitude, latitudeDelta: 0.0922, longitudeDelta: 0.0421 }}
                     style={{ flex: 1 }}
@@ -131,10 +135,13 @@ export default
                     followsUserLocation={true}
                     loadingEnabled={true}
                     toolbarEnabled={true}
-                    //oomEnabled={true}
+                    zoomEnabled={true}
+                    toolbarEnabled={true}
                     rotateEnabled={true}
                     region={{ latitude: this.state.region.coords.latitude, longitude: this.state.region.coords.longitude, latitudeDelta: 0.0922, longitudeDelta: 0.0421 }}
                 >
+                  
+
                     <MapView.Marker
                         
                         coordinate={this.state.region.coords}
@@ -161,7 +168,11 @@ export default
                         )
 
                                 
-                    })}
+                    }
+
+                  
+                    
+                    )}
 
                             </MapView>
 

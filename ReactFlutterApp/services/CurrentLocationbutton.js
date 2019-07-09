@@ -1,36 +1,32 @@
 import React from 'react';
 import {StyleSheet, Text, View, Dimensions, TouchableOpacity, Alert} from 'react-native';
-//import {Materialicons} from 'expo/vector-icons';
 import Icon from '@expo/vector-icons/FontAwesome';
 
 
 const WIDTH = Dimensions.get('window').width;
 const HEIGHT= Dimensions.get('window').height;
 
-export const CurrentLocationButton = function (props){
+export const CurrentLocationButton = function (){
 
-    const bottom = props.bottom? props.bottom: 65;
+
 
      return(
 
-         <View style ={[styles.container , {top: HEIGHT- bottom}]}>
+         <View style ={styles.container }>
 
                         <Icon 
                         name= "map-pin"
                         color="black"
                         size={25}
-                        onPress ={()=>{}}
+                        onPress ={()=>{Alert.alert('update coming soon')}}
                         />
-
-
-
          </View>
      )
 }
 
 const styles = StyleSheet.create({
     conatainer:{
-        zIndex:9,
+        zIndex:3,
         position: 'absolute',
         width: 45,
         height: 45,
