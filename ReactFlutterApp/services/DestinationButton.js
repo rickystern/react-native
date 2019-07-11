@@ -11,7 +11,9 @@ export const DestinationButton = function(props){
         <View>
 
         <TouchableOpacity  
-           onPress = {() =>{Alert.alert('You tapped the button!');}}
+           onPress = {() =>{Alert.alert('You tapped the button!'),{
+               opacity:9
+           }}}
              style = {styles.container}
         >
             <View style ={styles.leftCol}>
@@ -19,7 +21,7 @@ export const DestinationButton = function(props){
             </View>
 
             <View style = {styles.centerCol}>
-                <Text style ={{fontFamily: 'sans-serif-thin', fontSize:21, color: '#545454'}}>
+                <Text style ={{fontFamily: 'sans-serif-thin', fontSize:21, color: '#545454', fontWeight: 'bold'}}>
                     search store?
                 </Text>
             </View>
@@ -46,12 +48,13 @@ const styles = StyleSheet.create({
         top:110,
         left: 20,
         borderRadius: 2,
-        backgroundColor: 'white',
+        backgroundColor: 'transparent',
         alignItems: 'center',
         shadowColor: '#000000',
         elevation: 7,
         shadowRadius: 5,
-        shadowOpacity: 1.0
+        shadowOpacity: 1.0,
+        opacity:2
 
     },
     leftCol:{

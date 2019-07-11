@@ -9,6 +9,7 @@ import { SearchBar } from 'react-native-elements';
 import ProductLocations from './services/ProductLocations';
 import Cart from './services/Cart';
 import Voice from './services/Voice';
+import { Avatar } from "react-native-elements";
 class AppContainer extends React.Component {
 
   constructor(props) {
@@ -59,6 +60,8 @@ class AppContainer extends React.Component {
 
 
 
+
+
   render() {
 
 
@@ -79,13 +82,21 @@ class AppContainer extends React.Component {
             onChangeText={this.updateSearch}
             value={search}
             lightTheme
-            inputStyle={{backgroundColor: 'white'}}
-            containerStyle={{ backgroundColor: 'white'  }}
+            inputStyle={{backgroundColor: 'white'} }
+            containerStyle={{ backgroundColor: 'white'}}
             round
             onChangeText={query => { this.setState({ firstQuery: query }); }}
             value={firstQuery}
             onSubmitEditing={() => this.getProducts(firstQuery)}
             onCancelButtonPress={console.log(firstQuery)}
+            showLoading={true}
+            underlineColorAndroid="black"
+            rightIconContainerStyle={{ backgroundColor: 'white' }}
+            leftIconContainerStyle={{ backgroundColor: 'white' }}
+            animate="true"
+            animationDuration={200}
+
+
           />
 
           <View style={styles.container}>
@@ -107,26 +118,26 @@ class AppContainer extends React.Component {
                       <Image style={styles.image} source={{ uri: product.image }} />
                     </View>
                   </TouchableOpacity>
-                  <TouchableOpacity
-                                        onPress={() => navigate('ProductDetails', {
-                                          name: product.name,
-                                          image: product.image,
-                                          avail: product.inStoreAvailability,
-                                          price: product.price,
-                                          description: product.shortDescription,
-                                          manufacturer: product.manufacturer,
-                                          id: product.sku
-                                        })}>
+                  <TouchableOpacity 
+                    onPress={() => navigate('ProductDetails', {
+                      name: product.name,
+                      image: product.image,
+                      avail: product.inStoreAvailability,
+                      price: product.price,
+                      description: product.shortDescription,
+                      manufacturer: product.manufacturer,
+                      id: product.sku
+                    })}>
 
-                  <View style={styles.border}>
+                    <View style={styles.border}>
 
-                   
+
 
 
                       <View style={styles.text}>
 
                         <Text style={styles.descriptions}>
-                          {product.name.substring(0, 50) + "..."}
+                          {product.name.substring(0, 60) + "..."}
                         </Text>
 
                         <Text style={styles.price}>
@@ -135,16 +146,16 @@ class AppContainer extends React.Component {
                         </Text>
 
                         <Button
-                          title="Veiw"
+                          title="Veiw Product"
                           color="#fcdc00"
                         />
 
                       </View>
 
 
-                    
 
-                  </View>
+
+                    </View>
                   </TouchableOpacity>
 
                   <TouchableOpacity onPress={() => navigate('ProductDetails', {
@@ -206,12 +217,11 @@ const AppStack = createStackNavigator({
       ),
       headerRight: (
         <View style={{ padding: 12 }}>
-          <Icon
-            name="user-circle"
-            size={30}
-            paddingRight={10}
-            justifyContent="center"
+          <Avatar
+            rounded
+            icon={{ name: 'user-circle', color: 'black', type: 'font-awesome' }}
             onPress={() => Alert.alert('update coming soon!')}
+            activeOpacity={0.7}
           />
         </View>
       ),
@@ -236,9 +246,6 @@ const AppStack = createStackNavigator({
       title: 'is'
     })
 
-
-
-
   },
 
   Cart: {
@@ -247,12 +254,11 @@ const AppStack = createStackNavigator({
       title: 'DuckBuy',
       headerRight: (
         <View style={{ padding: 12 }}>
-          <Icon
-            name="user-circle"
-            size={30}
-            paddingRight={10}
-            justifyContent="center"
+          <Avatar
+            rounded
+            icon={{ name: 'user-circle', color: 'black', type: 'font-awesome' }}
             onPress={() => Alert.alert('update coming soon!')}
+            activeOpacity={0.7}
           />
         </View>
       )
@@ -271,12 +277,11 @@ const AppStack = createStackNavigator({
       },
       headerRight: (
         <View style={{ padding: 12 }}>
-          <Icon
-            name="user-circle"
-            size={30}
-            paddingRight={10}
-            justifyContent="center"
+          <Avatar
+            rounded
+            icon={{ name: 'user-circle', color: 'black', type: 'font-awesome' }}
             onPress={() => Alert.alert('update coming soon!')}
+            activeOpacity={0.7}
           />
         </View>
       )
@@ -285,10 +290,7 @@ const AppStack = createStackNavigator({
   },
 });
 
-
-
 export const Main = createBottomTabNavigator({
-
 
 
   Home: {
@@ -349,7 +351,6 @@ export const Main = createBottomTabNavigator({
 
   },
 
-
 },
   {
     initialRouteName: 'Home',
@@ -365,8 +366,6 @@ export const Main = createBottomTabNavigator({
     },
   }
 );
-
-
 const MainAgain = createAppContainer(Main);
 
 export default class App extends React.Component {
@@ -374,8 +373,6 @@ export default class App extends React.Component {
     return <MainAgain />;
   }
 }
-
-
 
 const styles = StyleSheet.create({
 
@@ -427,7 +424,7 @@ const styles = StyleSheet.create({
     height: 80,
     marginLeft: 150,
     resizeMode: 'contain',
-   
+
   },
 
   border: {
@@ -435,28 +432,21 @@ const styles = StyleSheet.create({
     borderLeftColor: '#d3d3d3'
 
   },
-
-
   imageheader: {
     width: 40,
     height: 40,
     marginLeft: 10
-
-
   },
 
   padding: {
     paddingRight: 15
   },
-
-
   text: {
     padding: 20,
     textAlign: 'center',
     fontSize: 30,
     fontWeight: 'bold'
   },
-
   center: {
     alignItems: 'center',
     justifyContent: 'center',

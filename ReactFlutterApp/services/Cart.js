@@ -1,6 +1,7 @@
 import React from 'react';
 import { Image, Text, View, StyleSheet, ScrollView, Button, TouchableOpacity, Alert, Linking } from 'react-native';
 
+
 export default class Cart extends React.Component {
   render() {
     return (

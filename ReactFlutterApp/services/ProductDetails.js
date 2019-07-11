@@ -5,20 +5,23 @@ import Icon from '@expo/vector-icons/FontAwesome'
 import { Button } from 'react-native-elements';
 import { ScrollView } from 'react-native-gesture-handler';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
+import { Avatar } from "react-native-elements";
 
 class dellaptop extends React.Component {
     static navigationOptions = {
         headerTitle: 'Duck Buy',
 
-    
+
         headerRight: (
-            <View style={{padding:12}}>
-            <Icon
-                name="user-circle"
-                onPress={() => Alert.alert('update coming soon!')}
-                size={30}
-            />
+            <View style={{ padding: 12 }}>
+                <Avatar
+                    rounded
+                    icon={{ name: 'user-circle', color: 'black', type: 'font-awesome' }}
+                    onPress={() => Alert.alert('update coming soon!')}
+                    activeOpacity={0.7}
+                />
             </View>
+
         ),
 
     };
@@ -45,7 +48,7 @@ class dellaptop extends React.Component {
         const price = navigation.getParam('price')
         const Manufacturer = navigation.getParam('manufacturer')
 
-        console.log("this shoulsd be price"+ price);
+        console.log("this shoulsd be price" + price);
         return (
 
             <ScrollView>
@@ -57,14 +60,14 @@ class dellaptop extends React.Component {
                     </View>
 
                     <Text style={styles.textdetails}>
-                        {name}
+
+                        <Text>Featuring the :  </Text>
+                        <Text style={{ color: 'black' }}>{name}</Text>
+                        <Text>  get yours today for   </Text>
+                        <Text style={{ color: "green", fontSize: 22 }}>{'$' + price}</Text>
+
                     </Text>
 
-                    <Text>
-                        {description}
-                   {price}
-                    </Text>
-                    
                     <View style={styles.heart}>
 
 
@@ -85,26 +88,26 @@ class dellaptop extends React.Component {
                             </TouchableOpacity>
 
                         </View >
-                        
+
                         <TouchableOpacity>
-                        <View  style={{padding:20, paddingLeft:90}}>
+                            <View style={{ padding: 20, paddingLeft: 90 }}>
                                 <Icon
-                                onPress={() => navigate('ProductLocations', {})}
+                                    onPress={() => navigate('ProductLocations', {})}
                                     style={{ color: 'black' }}
                                     size={40}
                                     name='map-marker'
 
-                                 />
-                        </View>
+                                />
+                            </View>
                         </TouchableOpacity>
 
 
                         <View style={styles.button}>
                             <Button
-                                 onPress={() => Alert.alert('update coming soon!')}
+                                onPress={() => Alert.alert('update coming soon!')}
                                 style={styles.button}
                                 title="Buy Now"
-                                color="fcdc00"
+
                             />
                         </View>
 
@@ -130,41 +133,44 @@ const styles = StyleSheet.create({
     imageDetails: {
         alignItems: 'center',
         padding: 20,
+        paddingTop: 0,
+        marginTop: 0,
         width: 400,
         height: 400,
         resizeMode: 'contain'
 
     },
     textdetails: {
-        padding: 15,
+        padding: 10,
         textAlign: 'center',
-        fontSize: 16,
+        fontSize: 17,
         fontWeight: 'bold'
     },
 
     heart: {
         paddingLeft: 90,
-        paddingRight:10,
+        paddingRight: 10,
         marginLeft: 10,
         alignItems: 'center',
         flexDirection: 'row',
-        justifyContent:'space-between',
-        marginBottom:30
+        justifyContent: 'space-between',
+        marginBottom: 30
 
 
 
     },
     button: {
         padding: 30,
-        paddingLeft:10,
+        paddingLeft: 10,
         margin: 50,
         alignItems: 'center',
         justifyContent: 'center',
-
+        color: '#fccb00'
     },
 
     container: {
         //padding: 20,
+        paddingTop: 0,
         alignItems: 'center',
         height: hp('125%'),
         width: wp('100%')

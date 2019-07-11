@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React  from 'react';
 import {StyleSheet, View } from 'react-native';
 import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
 import { Location } from 'expo';
@@ -80,8 +80,12 @@ export default
                     initialRegion={{ latitude: this.state.region.coords.latitude, longitude: this.state.region.coords.longitude, latitudeDelta: 0.0922, longitudeDelta: 0.0421 }}
                     style={{ flex: 1 }}
                     provider={PROVIDER_GOOGLE}
+                    showsScale
+                    showsBuildings
+                    showsPointsOfInterest
                     showsUserLocation={true}
                     showsMyLocationButton={true}
+                    zoomControlEnabled={true}
                     showsCompass={true}
                     followsUserLocation={true}
                     loadingEnabled={true}
